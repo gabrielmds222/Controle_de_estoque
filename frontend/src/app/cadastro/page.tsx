@@ -1,21 +1,43 @@
-import { useRouter } from "next/router";
+"use client";
+
+import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
+
+type FormData = {
+  nome: string;
+  telefone: string;
+  dataNascimento: string;
+  empresa: string;
+  cnpj: string;
+  email: string;
+  senha: string;
+  confirmaSenha: string;
+};
 
 const Cadastro = () => {
-  //   const router = useRouter();
-  //   function handleSubmit() {
-  //     router.push("/principal");
-  //   }
+  const router = useRouter();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormData>();
+
+  const onSubmit = handleSubmit((data) => {
+    console.log(data);
+    if (data) {
+      router.push("/principal");
+    }
+  });
 
   return (
     <div className="flex items-center justify-center min-h-screen">
       <form
         className="bg-white px-12 py-8 rounded max-w-xl mx-auto drop-shadow-lg"
-        // onSubmit={handleSubmit}
+        onSubmit={onSubmit}
       >
         <div className="text-center mb-4">
           <h2 className="text-2xl font-bold">Cadastro</h2>
         </div>
-        {/* ///////////////////////////////////////////////////////////////////////////////////////////////////////// */}
         <div className="mb-6">
           <label htmlFor="name" className="block text-gray-700 font-bold mb-2">
             Nome:
@@ -24,8 +46,9 @@ const Cadastro = () => {
             type="text"
             id="name"
             className="w-full border border-gray-300 rounded py-2 px-3 leading-tight focus:outline-none focus:border-blue-500"
-            required
             placeholder="Digite seu nome"
+            {...register("nome", { required: true })}
+            defaultValue=""
           />
         </div>
 
@@ -42,6 +65,8 @@ const Cadastro = () => {
               id="phone"
               className="w-full border border-gray-300 rounded py-2 px-3 leading-tight focus:outline-none focus:border-blue-500"
               placeholder="Digite seu telefone"
+              {...register("telefone", { required: true })}
+              defaultValue=""
             />
           </div>
           <div className="w-1/2 ml-2">
@@ -56,11 +81,11 @@ const Cadastro = () => {
               id="birthdate"
               className="w-full border border-gray-300 rounded py-2 px-3 leading-tight focus:outline-none focus:border-blue-500"
               placeholder="Digite sua data de nascimento"
+              {...register("dataNascimento")}
+              defaultValue=""
             />
           </div>
         </div>
-
-        {/* ////////////////////////////////////////////////////////////////////////////////////////////////////////////// */}
 
         <div className="flex mb-6 border-b-2 border-zinc-200 pb-6">
           <div className="w-1/2 mr-2">
@@ -75,6 +100,8 @@ const Cadastro = () => {
               id="companyName"
               className="w-full border border-gray-300 rounded py-2 px-3 leading-tight focus:outline-none focus:border-blue-500"
               placeholder="Digite o nome da empresa"
+              {...register("empresa", { required: true })}
+              defaultValue=""
             />
           </div>
           <div className="w-1/2 ml-2">
@@ -89,11 +116,11 @@ const Cadastro = () => {
               id="cnpj"
               className="w-full border border-gray-300 rounded py-2 px-3 leading-tight focus:outline-none focus:border-blue-500"
               placeholder="Digite o CNPJ da empresa"
+              {...register("cnpj", { required: true })}
+              defaultValue=""
             />
           </div>
         </div>
-
-        {/* ////////////////////////////////////////////////////////////////////////////////////////////////////////////// */}
 
         <div className="mb-4">
           <label htmlFor="email" className="block text-gray-700 font-bold mb-2">
@@ -104,6 +131,8 @@ const Cadastro = () => {
             id="email"
             className="w-full border border-gray-300 rounded py-2 px-3 leading-tight focus:outline-none focus:border-blue-500"
             placeholder="Digite seu email"
+            {...register("email", { required: true })}
+            defaultValue=""
           />
         </div>
 
@@ -120,25 +149,27 @@ const Cadastro = () => {
               id="password"
               className="w-full border border-gray-300 rounded py-2 px-3 leading-tight focus:outline-none focus:border-blue-500"
               placeholder="Digite sua senha"
+              {...register("senha", { required: true })}
+              defaultValue=""
             />
           </div>
           <div className="w-1/2 ml-2">
             <label
-              htmlFor="password"
+              htmlFor="passwordConfirm"
               className="block text-gray-700 font-bold mb-2"
             >
               Confirmar senha:
             </label>
             <input
               type="password"
-              id="password"
+              id="passwordConfirm"
               className="w-full border border-gray-300 rounded py-2 px-3 leading-tight focus:outline-none focus:border-blue-500"
               placeholder="Digite sua senha"
+              {...register("confirmaSenha", { required: true })}
+              defaultValue=""
             />
           </div>
         </div>
-
-        {/* ////////////////////////////////////////////////////////////////////////////////////////////////////////////// */}
 
         <div className="flex items-center justify-center pt-6">
           <button
