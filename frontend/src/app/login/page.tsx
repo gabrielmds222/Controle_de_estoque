@@ -1,6 +1,32 @@
+"use client";
+
+import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
+
+type FormData = {
+  email: string;
+  senha: string;
+};
+
 const Login = () => {
+  const router = useRouter();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormData>();
+
+  const onSubmit = handleSubmit((data) => {
+    console.log(data);
+    if (data) {
+      router.push("/principal");
+    }
+  });
   return (
-    <form className="bg-white px-12 py-8 rounded max-w-sm mx-auto drop-shadow-lg">
+    <form
+      onSubmit={onSubmit}
+      className="bg-white px-12 py-8 rounded max-w-sm mx-auto drop-shadow-lg"
+    >
       <div className="text-center mb-4">
         <h2 className="text-2xl font-bold">Login</h2>
       </div>
@@ -13,6 +39,8 @@ const Login = () => {
           id="email"
           className="w-full border border-gray-300 rounded py-2 px-3 leading-tight focus:outline-none focus:border-blue-500"
           placeholder="Digite seu email"
+          {...register("email", { required: true })}
+          defaultValue=""
         />
       </div>
       <div className="mb-6">
@@ -27,6 +55,8 @@ const Login = () => {
           id="password"
           className="w-full border border-gray-300 rounded py-2 px-3 leading-tight focus:outline-none focus:border-blue-500"
           placeholder="Digite sua senha"
+          {...register("senha", { required: true })}
+          defaultValue=""
         />
       </div>
       <div className="flex items-center justify-center pt-6">
