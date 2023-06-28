@@ -2,16 +2,13 @@
 
 import * as React from "react";
 import Tabela from "@/components/Tabela";
+import AdicionaProduto from "@/components/AdicionaProduto";
 import { Plus } from "@phosphor-icons/react";
 
 const Principal = () => {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen">
-      <div className="flex justify-end w-4/5 max-w-screen-xl mx-auto">
-        <button className="p-2 rounded text-slate-100 mb-4 bg-blue-500 hover:bg-blue-700 focus:outline-none focus:shadow-outline">
-          <Plus size={24} color="#fff" weight="bold" />
-        </button>
-      </div>
+    <div className="flex flex-col items-center justify-start min-h-screen">
+      <AdicionaProduto />
       <div className="bg-white px-12 py-8 rounded w-4/5 max-w-screen-xl mx-auto drop-shadow-lg overflow-x-auto">
         <div className="table-container">
           <table className="table-auto min-w-full divide-y-2 divide-gray-200 bg-white text-sm">
