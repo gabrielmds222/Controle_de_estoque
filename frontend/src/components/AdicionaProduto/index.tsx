@@ -1,8 +1,31 @@
+"use client";
+
+// import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
 import { Plus } from "@phosphor-icons/react";
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
+import { useRouter } from "next/navigation";
+
+type CadastroType = {
+  id: number;
+  nome: string;
+  preco: number;
+  quantidade: number;
+};
+
 const AdicionaProduto = () => {
   let [isOpen, setIsOpen] = useState(false);
+  const route = useRouter();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<CadastroType>();
+
+  const onSubmit = handleSubmit((data) => {
+    console.log(data);
+  });
 
   function closeModal() {
     setIsOpen(false);
@@ -49,7 +72,10 @@ const AdicionaProduto = () => {
                 leaveTo="opacity-0 scale-95"
               >
                 <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
-                  <form className="bg-white px-12 py-8 rounded max-w-sm mx-auto">
+                  <form
+                    onSubmit={onSubmit}
+                    className="bg-white px-12 py-8 rounded max-w-sm mx-auto"
+                  >
                     <div className="mb-6">
                       <label
                         htmlFor="nome"
@@ -62,6 +88,8 @@ const AdicionaProduto = () => {
                         id="nome"
                         className="w-full border border-gray-300 rounded py-2 px-3 leading-tight focus:outline-none focus:border-blue-500"
                         placeholder="Digite o nome do produto"
+                        {...register("nome", { required: true })}
+                        defaultValue=""
                       />
                     </div>
                     <div className="mb-6">
@@ -76,6 +104,8 @@ const AdicionaProduto = () => {
                         id="preco"
                         className="w-full border border-gray-300 rounded py-2 px-3 leading-tight focus:outline-none focus:border-blue-500"
                         placeholder="Digite o preço do produto"
+                        {...register("preco", { required: true })}
+                        defaultValue=""
                       />
                     </div>
                     <div className="mb-6">
@@ -91,6 +121,8 @@ const AdicionaProduto = () => {
                         className="w-full border border-gray-300 rounded py-2 px-3 leading-tight focus:outline-none focus:border-blue-500"
                         placeholder="Digite a quantidade do produto"
                         min="1"
+                        {...register("quantidade", { required: true })}
+                        defaultValue=""
                       />
                     </div>
                     <div className="flex items-center justify-center pt-4">
