@@ -9,9 +9,9 @@ const Principal = () => {
   return (
     <div className="flex flex-col items-center justify-start min-h-screen">
       <AdicionaProduto />
-      <div className="bg-white px-12 py-8 rounded w-4/5 max-w-screen-xl mx-auto drop-shadow-lg overflow-x-auto">
+      <div className="bg-white px-12 py-6 rounded w-3/5 max-w-screen-xl mx-auto drop-shadow-lg overflow-x-auto mb-10">
         <div className="table-container">
-          <table className="table-auto min-w-full divide-y-2 divide-gray-200 bg-white text-sm">
+          <table className="table-fixed min-w-full divide-y-2 divide-gray-200 bg-white text-sm">
             <thead className="ltr:text-left rtl:text-right">
               <tr>
                 <th className="whitespace-nowrap px-4 py-2 font-medium text-gray-900 text-left">
@@ -30,6 +30,15 @@ const Principal = () => {
               </tr>
             </thead>
 
+            <Tabela />
+            <Tabela />
+            <Tabela />
+            <Tabela />
+            <Tabela />
+            <Tabela />
+            <Tabela />
+            <Tabela />
+            <Tabela />
             <Tabela />
           </table>
         </div>
