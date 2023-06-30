@@ -36,7 +36,7 @@ const AdicionaProduto = () => {
   }
   return (
     <>
-      <div className="flex justify-end w-4/5 max-w-screen-xl mx-auto mt-10">
+      <div className="flex justify-end w-3/5 max-w-screen-xl mx-auto mt-4">
         <button
           className="p-2 rounded mb-4 bg-blue-500 hover:bg-blue-700 focus:outline-none focus:shadow-outline"
           type="button"
