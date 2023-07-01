@@ -3,6 +3,8 @@
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 
+import axios from "axios";
+
 type FormData = {
   nome: string;
   telefone: string;
@@ -22,11 +24,22 @@ const Cadastro = () => {
     formState: { errors },
   } = useForm<FormData>();
 
-  const onSubmit = handleSubmit((data) => {
-    console.log(data);
-    if (data) {
-      router.push("/principal");
+  const onSubmit = handleSubmit(async (data) => {
+    try {
+      const response = await axios.post(
+        "http://127.0.0.1:8000/api/auth/register",
+        data
+      );
+
+      if (response.status === 201) {
+        router.push("/principal");
+      } else {
+        console.error(response.data.errors);
+      }
+    } catch (error) {
+      console.error("Erro ao enviar o formulário:", error);
     }
+    console.log(data);
   });
 
   return (
