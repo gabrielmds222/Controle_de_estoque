@@ -6,14 +6,14 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 
 type FormData = {
-  nome: string;
-  telefone: string;
-  dataNascimento: string;
-  empresa: string;
+  name: string;
+  phone: string;
+  birthdate: string;
+  enterprise: string;
   cnpj: string;
   email: string;
-  senha: string;
-  confirmaSenha: string;
+  password: string;
+  password_confirmation: string;
 };
 
 const Cadastro = () => {
@@ -24,12 +24,32 @@ const Cadastro = () => {
     formState: { errors },
   } = useForm<FormData>();
 
-  const onSubmit = handleSubmit((data) => {
-    console.log(data);
+  const onSubmit = handleSubmit(async (data) => {
+    try {
+      const response = await axios.post(
+        "http://127.0.0.1:8000/users",
+        JSON.stringify(data),
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log(response.data);
+    } catch (error) {
+      console.error(error);
+    }
     if (data) {
-      router.push("/principal");
+      router.push("/");
     }
   });
+
+  // const onSubmit = handleSubmit((data) => {
+  //   console.log(JSON.stringify(data));
+  //   if (data) {
+  //     router.push("/principal");
+  //   }
+  // });
 
   return (
     <div className="flex items-center justify-center min-h-screen">
@@ -49,7 +69,7 @@ const Cadastro = () => {
             id="name"
             className="w-full border border-gray-300 rounded py-2 px-3 leading-tight focus:outline-none focus:border-blue-500"
             placeholder="Digite seu nome"
-            {...register("nome", { required: true })}
+            {...register("name", { required: true })}
             defaultValue=""
           />
         </div>
@@ -67,7 +87,7 @@ const Cadastro = () => {
               id="phone"
               className="w-full border border-gray-300 rounded py-2 px-3 leading-tight focus:outline-none focus:border-blue-500"
               placeholder="Digite seu telefone"
-              {...register("telefone", { required: true })}
+              {...register("phone", { required: true })}
               defaultValue=""
             />
           </div>
@@ -83,7 +103,7 @@ const Cadastro = () => {
               id="birthdate"
               className="w-full border border-gray-300 rounded py-2 px-3 leading-tight focus:outline-none focus:border-blue-500"
               placeholder="Digite sua data de nascimento"
-              {...register("dataNascimento")}
+              {...register("birthdate")}
               defaultValue=""
             />
           </div>
@@ -102,7 +122,7 @@ const Cadastro = () => {
               id="companyName"
               className="w-full border border-gray-300 rounded py-2 px-3 leading-tight focus:outline-none focus:border-blue-500"
               placeholder="Digite o nome da empresa"
-              {...register("empresa", { required: true })}
+              {...register("enterprise", { required: true })}
               defaultValue=""
             />
           </div>
@@ -151,23 +171,23 @@ const Cadastro = () => {
               id="password"
               className="w-full border border-gray-300 rounded py-2 px-3 leading-tight focus:outline-none focus:border-blue-500"
               placeholder="Digite sua senha"
-              {...register("senha", { required: true })}
+              {...register("password", { required: true })}
               defaultValue=""
             />
           </div>
           <div className="w-1/2 ml-2">
             <label
-              htmlFor="passwordConfirm"
+              htmlFor="password_confirmation"
               className="block text-gray-700 font-bold mb-2"
             >
               Confirmar senha:
             </label>
             <input
               type="password"
-              id="passwordConfirm"
+              id="password_confirmation"
               className="w-full border border-gray-300 rounded py-2 px-3 leading-tight focus:outline-none focus:border-blue-500"
               placeholder="Digite sua senha"
-              {...register("confirmaSenha", { required: true })}
+              {...register("password_confirmation", { required: true })}
               defaultValue=""
             />
           </div>
