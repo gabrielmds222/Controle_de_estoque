@@ -31,15 +31,6 @@ const Principal = () => {
             </thead>
 
             <Tabela />
-            <Tabela />
-            <Tabela />
-            <Tabela />
-            <Tabela />
-            <Tabela />
-            <Tabela />
-            <Tabela />
-            <Tabela />
-            <Tabela />
           </table>
         </div>
       </div>
