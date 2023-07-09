@@ -9,9 +9,9 @@ import { useRouter } from "next/navigation";
 
 type CadastroType = {
   id: number;
-  nome: string;
-  preco: number;
-  quantidade: number;
+  name: string;
+  price: number;
+  quantity: number;
 };
 
 const AdicionaProduto = () => {
@@ -88,7 +88,7 @@ const AdicionaProduto = () => {
                         id="nome"
                         className="w-full border border-gray-300 rounded py-2 px-3 leading-tight focus:outline-none focus:border-blue-500"
                         placeholder="Digite o nome do produto"
-                        {...register("nome", { required: true })}
+                        {...register("name", { required: true })}
                         defaultValue=""
                       />
                     </div>
@@ -104,7 +104,7 @@ const AdicionaProduto = () => {
                         id="preco"
                         className="w-full border border-gray-300 rounded py-2 px-3 leading-tight focus:outline-none focus:border-blue-500"
                         placeholder="Digite o preço do produto"
-                        {...register("preco", { required: true })}
+                        {...register("price", { required: true })}
                         defaultValue=""
                       />
                     </div>
@@ -121,7 +121,7 @@ const AdicionaProduto = () => {
                         className="w-full border border-gray-300 rounded py-2 px-3 leading-tight focus:outline-none focus:border-blue-500"
                         placeholder="Digite a quantidade do produto"
                         min="1"
-                        {...register("quantidade", { required: true })}
+                        {...register("quantity", { required: true })}
                         defaultValue=""
                       />
                     </div>
