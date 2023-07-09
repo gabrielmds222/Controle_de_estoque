@@ -6,6 +6,7 @@ import { Plus } from "@phosphor-icons/react";
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import { useRouter } from "next/navigation";
+import axios from "axios";
 
 type CadastroType = {
   id: number;
@@ -23,8 +24,28 @@ const AdicionaProduto = () => {
     formState: { errors },
   } = useForm<CadastroType>();
 
-  const onSubmit = handleSubmit((data) => {
-    console.log(data);
+  // const onSubmit = handleSubmit((data) => {
+  //   console.log(JSON.stringify(data));
+  // });
+
+  const onSubmit = handleSubmit(async (data) => {
+    try {
+      const response = await axios.post(
+        "http://127.0.0.1:8000/product",
+        JSON.stringify(data),
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+    if (data) {
+      setIsOpen(false);
+    }
   });
 
   function closeModal() {
