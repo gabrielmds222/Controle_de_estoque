@@ -7,6 +7,7 @@ use App\Http\Resources\UserResource;
 use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -24,5 +25,17 @@ class UserController extends Controller
         $user = User::create($data);
 
         return new UserResource($user);
+    }
+
+    public function login(Request $request)
+    {
+        $credentials = $request->only('email', 'password');
+
+        if (Auth::attempt($credentials)) {
+            $user = Auth::user();
+            return new UserResource($user);
+        }
+
+        return response()->json(['error' => 'Unauthorized'], 401);
     }
 }
