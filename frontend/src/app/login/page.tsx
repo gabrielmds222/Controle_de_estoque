@@ -2,10 +2,11 @@
 
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
+import axios from "axios";
 
 type FormData = {
   email: string;
-  senha: string;
+  password: string;
 };
 
 const Login = () => {
@@ -16,12 +17,19 @@ const Login = () => {
     formState: { errors },
   } = useForm<FormData>();
 
-  const onSubmit = handleSubmit((data) => {
-    console.log(data);
-    if (data) {
-      router.push("/principal");
+  const onSubmit = handleSubmit(async (data) => {
+    try {
+      const response = await axios.post("http://127.0.0.1:8000/login", data);
+      console.log(response.data);
+
+      if (response.status === 200) {
+        router.push("/principal");
+      }
+    } catch (error) {
+      console.error(error);
     }
   });
+
   return (
     <form
       onSubmit={onSubmit}
@@ -55,7 +63,7 @@ const Login = () => {
           id="password"
           className="w-full border border-gray-300 rounded py-2 px-3 leading-tight focus:outline-none focus:border-blue-500"
           placeholder="Digite sua senha"
-          {...register("senha", { required: true })}
+          {...register("password", { required: true })}
           defaultValue=""
         />
       </div>
