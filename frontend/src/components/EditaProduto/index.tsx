@@ -2,7 +2,7 @@
 
 // import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
-import { Plus } from "@phosphor-icons/react";
+import { Pencil } from "@phosphor-icons/react";
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import { useRouter } from "next/navigation";
@@ -15,7 +15,11 @@ type CadastroType = {
   quantity: number;
 };
 
-const AdicionaProduto = () => {
+type EditaProdutoProps = {
+  productId: number;
+};
+
+const EditaProduto = ({ productId }: EditaProdutoProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const route = useRouter();
   const {
@@ -24,10 +28,10 @@ const AdicionaProduto = () => {
     formState: { errors },
   } = useForm<CadastroType>();
 
-  const onSubmit = handleSubmit(async (data) => {
+  const updateProduct = handleSubmit(async (data) => {
     try {
-      const response = await axios.post(
-        "http://127.0.0.1:8000/product",
+      const response = await axios.put(
+        `http://127.0.0.1:8000/product/${productId}`,
         JSON.stringify(data),
         {
           headers: {
@@ -40,7 +44,7 @@ const AdicionaProduto = () => {
       console.log(error);
     }
     if (data) {
-      setIsOpen(false);
+      closeModal();
     }
   });
 
@@ -53,15 +57,13 @@ const AdicionaProduto = () => {
   }
   return (
     <>
-      <div className="flex justify-end w-3/5 max-w-screen-xl mx-auto mt-4">
-        <button
-          className="p-2 rounded mb-4 bg-blue-500 hover:bg-blue-700 focus:outline-none focus:shadow-outline"
-          type="button"
-          onClick={openModal}
-        >
-          <Plus size={24} color="#fff" weight="bold" />
-        </button>
-      </div>
+      <button
+        type="button"
+        onClick={openModal}
+        className="inline-block rounded bg-green-600 p-2 text-xs font-medium text-white hover:bg-green-700"
+      >
+        <Pencil size={24} color="#fff" weight="bold" />
+      </button>
 
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={closeModal}>
@@ -90,7 +92,7 @@ const AdicionaProduto = () => {
               >
                 <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                   <form
-                    onSubmit={onSubmit}
+                    onSubmit={updateProduct}
                     className="bg-white px-12 py-8 rounded max-w-sm mx-auto"
                   >
                     <div className="mb-6">
@@ -161,4 +163,4 @@ const AdicionaProduto = () => {
   );
 };
 
-export default AdicionaProduto;
+export default EditaProduto;
