@@ -11,6 +11,8 @@ Route::post('/users', [UserController::class, 'store']);
 
 Route::get('/product', [ProductController::class, 'index']);
 Route::post('/product', [ProductController::class, 'store']);
+Route::delete('/product/{id}', [ProductController::class, 'destroy']);
+Route::put('product/{id}', [ProductController::class, 'update']);
 
 Route::get('/', function(){
     return response()->json([
